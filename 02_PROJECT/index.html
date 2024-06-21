@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contactos de Google</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <form>
+      <div class="main-container">
+        <div class="section-contact">
+          <div class="section__icon">
+            <img
+              src="img/person.png"
+              alt="person icon"
+              class="section__icon-img"
+            />
+          </div>
+          <div>
+            <label class="section-group__label">
+              Name
+              <input class="section-group__input" type="text" name="name" />
+            </label>
+  
+            <label class="section-group__label">
+              Last Name
+              <input class="section-group__input" type="text" name="last-name" />
+            </label>
+
+          </div>
+        </div>
+        <div class="section-workplace">
+          <div class="section__icon">
+            <img
+              src="img/corporate.png"
+              alt="corporate icon"
+              class="section__icon-img"
+            />
+          </div>
+          <div>
+            <label class="section-group__label">
+              Company
+              <input
+                class="section-group__input"
+                type="text"
+                name="company-name"
+              />
+            </label>
+            <label class="section-group__label">
+              Job title
+              <input class="section-group__input" type="text" name="job-title" />
+            </label>
+          </div>
+        </div>
+        <div class="section-email">
+          <div class="section__icon">
+            <img src="img/mail.png" alt="mail icon" class="section__icon-img" />
+          </div>
+          <label class="section-group__label">
+            Email
+            <input class="section-group__input" type="email" name="email" />
+          </label>
+        </div>
+        <div class="section-phone">
+          <div class="section__icon">
+            <img src="img/call.png" alt="call icon" class="section__icon-img" />
+          </div>
+          <div class="section__country-phone">
+            <label class="section__country-label">
+              Country
+              <select class="section__country-select">
+                <option value="01">Mexico (+52)</option>
+                <option value="02">United States (+1)</option>
+                <option value="03">Canada (+1)</option>
+              </select>
+            </label>
+            <label class="section__number-label">
+              Phone
+              <input class="section__number-input" type="tel" name="phone" />
+            </label>
+            <label class="section__label-label">
+              Label
+              <select class="section__label-select" name="label">
+                <option value="01">Home</option>
+                <option value="02">Work</option>
+                <option value="03">Other</option>
+                <option value="04">Mobile</option>
+                <option value="05">Main</option>
+                <option value="06">Home Fax</option>
+                <option value="07">Work Fax</option>
+                <option value="08">Google Voice</option>
+                <option value="09">Pager</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="section-birthday">
+          <div class="section__icon">
+            <img src="img/cake.png" alt="cake icon" class="section__icon-img" />
+          </div>
+          <div class="section__month-day-year">
+            <label class="section__month-label">
+              Month
+              <select class="section__month-select" name="month">
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">Abril</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">Octuber</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </label>
+            <label class="section__day-label">
+              Day
+              <input class="section__day-input" type="number" name="day" />
+            </label>
+            <label class="section__year-label">
+              Year (optional)
+              <input class="section__year-input" type="number" name="year" />
+            </label>
+          </div>
+        </div>
+        <div class="section-notes">
+          <div class="section__icon">
+            <img
+              src="img/sticky_note.png"
+              alt="notes icon"
+              class="section__icon-img"
+            />
+          </div>
+          <label class="section__notes-label">
+            Notes
+            <textarea class="section__notes-textarea" name="notes"></textarea>
+          </label>
+        </div>
+        <div class="save-button">
+          <button type="submit">Save</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
