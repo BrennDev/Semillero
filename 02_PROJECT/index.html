@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <form>
+    <form class="contact-form">
       <div class="main-container">
         <div class="section-contact">
           <div class="section__icon">
@@ -21,12 +21,11 @@
               class="section__icon-img"
             />
           </div>
-          <div>
+          <div class="section-group">
             <label class="section-group__label">
               Name
               <input class="section-group__input" type="text" name="name" />
             </label>
-  
             <label class="section-group__label">
               Last Name
               <input class="section-group__input" type="text" name="last-name" />
@@ -42,7 +41,7 @@
               class="section__icon-img"
             />
           </div>
-          <div>
+          <div class="section-group">
             <label class="section-group__label">
               Company
               <input
@@ -61,9 +60,9 @@
           <div class="section__icon">
             <img src="img/mail.png" alt="mail icon" class="section__icon-img" />
           </div>
-          <label class="section-group__label">
+          <label class="section-email__label">
             Email
-            <input class="section-group__input" type="email" name="email" />
+            <input class="section-email__input" type="email" name="email" />
           </label>
         </div>
         <div class="section-phone">
@@ -74,7 +73,7 @@
             <label class="section__country-label">
               Country
               <select class="section__country-select">
-                <option value="01">Mexico (+52)</option>
+                <option value="01" src="img/mx.png">Mexico (+52)</option>
                 <option value="02">United States (+1)</option>
                 <option value="03">Canada (+1)</option>
               </select>
