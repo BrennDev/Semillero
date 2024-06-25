@@ -6,7 +6,8 @@
 
 :root {
   --main-width-600: 100%;
-  --section-padding-600: 0 0px 24px 0;
+  --section-padding-600: 0 0 1em 0;
+  --section-padding-900: 0 0 1em 0;
   --section-container-width: 90%;
   --group-width: 90%;
   --input-padding: 0 16px;
@@ -29,7 +30,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-.contact-form{
+.contact-form {
   width: 100%;
   padding: 20px;
 }
@@ -62,7 +63,6 @@ body {
 .section-birthday,
 .section-notes {
   display: flex;
-  flex-wrap: wrap;
   padding: var(--section-padding-600);
   width: var(--section-container-width);
   justify-content: center;
@@ -105,42 +105,21 @@ body {
   width: var(--group-width);
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5em;
 }
 
-.section__country-label {
-  height: 60px;
-  width: 20%;
-}
-
-.section__country-select {
-  width: var(--input-width);
-  height: var(--input-height);
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
-}
-
+.section__country-label,
+.section__label-label,
 .section__number-label {
-  width: 78%;
-}
-
-.section__number-input {
-  width: var(--input-width);
-  height: var(--input-height);
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
-}
-
-.section__label-label {
   width: var(--group-label-width);
   height: var(--group-label-height);
-  display: flex;
-  flex-direction: column;
 }
 
+.section__country-select,
+.section__number-input,
 .section__label-select {
-  width: var(--group-label-width);
-  height: var(--input-width);
+  width: var(--input-width);
+  height: var(--input-height);
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
 }
@@ -149,15 +128,13 @@ body {
   width: var(--group-width);
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0.5em;
 }
 
-.section__day-label {
-  width: 20%;
-}
-
-.section__month-label {
-  width: 78%;
+.section__day-label,
+.section__month-label,
+.section__year-label {
+  width: var(--group-label-width);
 }
 
 .section__day-input {
@@ -176,12 +153,6 @@ body {
   border-radius: var(--input-border-radius);
 }
 
-.section__year-label {
-  width: var(--group-label-width);
-  display: flex;
-  flex-direction: column;
-}
-
 .section__year-input {
   width: var(--input-width);
   height: var(--input-height);
@@ -197,15 +168,16 @@ body {
 
 .section__notes-textarea {
   width: var(--input-width);
-  height: 48px;
+  height: 60px;
   border-width: var(--input-border-width);
   border-radius: var(--input-border-radius);
 }
 
 .save-button {
+  width: var(--section-container-width);
   display: flex;
   justify-content: right;
- 
+  padding-right: 5px;
 }
 
 .save-button button {
@@ -224,8 +196,49 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 600px) and (max-width: 899px) {
+  .section-contact,
+  .section-workplace,
+  .section-email,
+  .section-phone,
+  .section-birthday,
+  .section-notes {
+    flex-wrap: wrap;
+    padding: var(--section-padding-900);
+  }
 
+  .section__country-label {
+    width: 20%;
+  }
+
+  .section__number-label {
+    width: 78%;
+  }
+
+  .section__label-label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section__day-label {
+    width: 20%;
+  }
+
+  .section__month-label {
+    width: 78%;
+  }
+
+  .section__year-label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .save-button {
+    padding-right: 1em;
+  }
+}
+
+@media (min-width: 900px) {
   .contact-form {
     padding: 40px;
   }
@@ -235,5 +248,53 @@ body {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .section__country-phone,
+  .section__month-day-year {
+    gap: 1em;
+  }
+
+  .section__country-label {
+    width: 20%;
+  }
+
+  .section__number-label {
+    width: 70%;
+  }
+
+  .section__label-label {
+    width: 50%;
+  }
+
+  .section__day-label {
+    width: 20%;
+  }
+
+  .section__month-label {
+    width: 70%;
+  }
+
+  .section__year-label {
+    width: 50%;
+  }
+
+  .save-button {
+    padding-right: 1.5em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .contact-form {
+    max-width: 1500px;
+  }
+
+  .section-group {
+    flex-direction: row;
+    gap: 1em;
+  }
+
+  .save-button {
+    padding-right: 2em;
   }
 }
