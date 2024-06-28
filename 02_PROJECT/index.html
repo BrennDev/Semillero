@@ -14,7 +14,7 @@
   <body>
     <form class="contact-form">
       <div class="main-container">
-        <div class="section-contact">
+        <section class="section">
           <div class="section__icon">
             <img
               src="img/person.png"
@@ -24,11 +24,11 @@
           </div>
           <div class="section-group">
             <label class="section-group__label">
-              Name
+              First name
               <input class="section-group__input" type="text" name="name" />
             </label>
             <label class="section-group__label">
-              Last Name
+              Last name
               <input
                 class="section-group__input"
                 type="text"
@@ -36,8 +36,8 @@
               />
             </label>
           </div>
-        </div>
-        <div class="section-workplace">
+        </section>
+        <section class="section">
           <div class="section__icon">
             <img
               src="img/corporate.png"
@@ -63,8 +63,8 @@
               />
             </label>
           </div>
-        </div>
-        <div class="section-email">
+        </section>
+        <section class="section">
           <div class="section__icon">
             <img src="img/mail.png" alt="mail icon" class="section__icon-img" />
           </div>
@@ -72,8 +72,8 @@
             Email
             <input class="section-email__input" type="email" name="email" />
           </label>
-        </div>
-        <div class="section-phone">
+        </section>
+        <section class="section">
           <div class="section__icon">
             <img src="img/call.png" alt="call icon" class="section__icon-img" />
           </div>
@@ -85,6 +85,7 @@
                 <option value="02">🇺🇸 United States (+1)</option>
                 <option value="03">🇨🇦 Canada (+1)</option>
               </select>
+              <span class="section__custom-arrow"></span>
             </label>
             <label class="section__number-label">
               Phone
@@ -103,10 +104,11 @@
                 <option value="08">Google Voice</option>
                 <option value="09">Pager</option>
               </select>
+              <span class="section__custom-arrow"></span>
             </label>
           </div>
-        </div>
-        <div class="section-birthday">
+        </section>
+        <section class="section">
           <div class="section__icon">
             <img src="img/cake.png" alt="cake icon" class="section__icon-img" />
           </div>
@@ -127,6 +129,7 @@
                 <option value="11">November</option>
                 <option value="12">December</option>
               </select>
+              <span class="section__custom-arrow"></span>
             </label>
             <label class="section__day-label">
               Day
@@ -137,8 +140,8 @@
               <input class="section__year-input" type="number" name="year" />
             </label>
           </div>
-        </div>
-        <div class="section-notes">
+        </section>
+        <section class="section">
           <div class="section__icon">
             <img
               src="img/sticky_note.png"
@@ -150,9 +153,9 @@
             Notes
             <textarea class="section__notes-textarea" name="notes"></textarea>
           </label>
-        </div>
+        </section>
         <div class="save-button">
-          <button type="submit">Save</button>
+          <button type="submit" disabled>Save</button>
         </div>
       </div>
     </form>
