@@ -22,18 +22,14 @@
               class="section__icon-img"
             />
           </div>
-          <div class="section-group">
-            <label class="section-group__label">
+          <div class="long-input__direction separation medium-input__direction">
+            <label class="label-style">
               First name
-              <input class="section-group__input" type="text" name="name" />
+              <input class="input-select-style" type="text" id="name" />
             </label>
-            <label class="section-group__label">
+            <label class="label-style">
               Last name
-              <input
-                class="section-group__input"
-                type="text"
-                name="last-name"
-              />
+              <input class="input-select-style" type="text" name="last-name" />
             </label>
           </div>
         </section>
@@ -45,22 +41,18 @@
               class="section__icon-img"
             />
           </div>
-          <div class="section-group">
-            <label class="section-group__label">
+          <div class="long-input__direction separation medium-input__direction">
+            <label class="label-style">
               Company
               <input
-                class="section-group__input"
+                class="input-select-style"
                 type="text"
                 name="company-name"
               />
             </label>
-            <label class="section-group__label">
+            <label class="label-style">
               Job title
-              <input
-                class="section-group__input"
-                type="text"
-                name="job-title"
-              />
+              <input class="input-select-style" type="text" name="job-title" />
             </label>
           </div>
         </section>
@@ -68,32 +60,36 @@
           <div class="section__icon">
             <img src="img/mail.png" alt="mail icon" class="section__icon-img" />
           </div>
-          <label class="section-email__label">
-            Email
-            <input class="section-email__input" type="email" name="email" />
-          </label>
+          <div class="long-input__direction">
+            <label class="label-style">
+              Email
+              <input class="input-select-style" type="email" name="email" />
+            </label>
+          </div>
         </section>
         <section class="section">
           <div class="section__icon">
             <img src="img/call.png" alt="call icon" class="section__icon-img" />
           </div>
           <div class="section__country-phone">
-            <label class="section__country-label">
+            <label
+              class="label-style short-input__label section__country-label"
+            >
               Country
-              <select class="section__country-select">
+              <select class="input-select-style">
                 <option value="01">🇲🇽 Mexico (+52)</option>
                 <option value="02">🇺🇸 United States (+1)</option>
                 <option value="03">🇨🇦 Canada (+1)</option>
               </select>
               <span class="section__custom-arrow"></span>
             </label>
-            <label class="section__number-label">
+            <label class="label-style medium-input__label">
               Phone
-              <input class="section__number-input" type="tel" name="phone" />
+              <input class="input-select-style" type="tel" name="phone" />
             </label>
-            <label class="section__label-label">
+            <label class="label-style large-input__label section__label-label">
               Label
-              <select class="section__label-select" name="label">
+              <select class="input-select-style" name="label">
                 <option value="01">Home</option>
                 <option value="02">Work</option>
                 <option value="03">Other</option>
@@ -113,9 +109,9 @@
             <img src="img/cake.png" alt="cake icon" class="section__icon-img" />
           </div>
           <div class="section__month-day-year">
-            <label class="section__month-label">
+            <label class="label-style medium-input__label section__month-label">
               Month
-              <select class="section__month-select" name="month">
+              <select class="input-select-style" name="month">
                 <option value="01">January</option>
                 <option value="02">February</option>
                 <option value="03">March</option>
@@ -131,13 +127,13 @@
               </select>
               <span class="section__custom-arrow"></span>
             </label>
-            <label class="section__day-label">
+            <label class="label-style short-input__label">
               Day
-              <input class="section__day-input" type="number" name="day" />
+              <input class="input-select-style" type="number" name="day" />
             </label>
-            <label class="section__year-label">
+            <label class="label-style large-input__label">
               Year (optional)
-              <input class="section__year-input" type="number" name="year" />
+              <input class="input-select-style" type="number" name="year" />
             </label>
           </div>
         </section>
@@ -149,10 +145,15 @@
               class="section__icon-img"
             />
           </div>
-          <label class="section__notes-label">
-            Notes
-            <textarea class="section__notes-textarea" name="notes"></textarea>
-          </label>
+          <div class="long-input__direction">
+            <label class="label-style note-height">
+              Notes
+              <textarea
+                class="input-select-style section__notes-textarea"
+                name="notes"
+              ></textarea>
+            </label>
+          </div>
         </section>
         <div class="save-button">
           <button type="submit" disabled>Save</button>

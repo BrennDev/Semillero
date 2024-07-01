@@ -11,8 +11,8 @@
   --group-width: 90%;
   --input-padding: 0 16px;
   --group-height: 60px;
-  --group-label-width: 100%;
-  --label-width: 90%;
+  --group-label-width: 90%;
+  --label-width: 100%;
   --group-label-height: 65px;
   --input-width: 100%;
   --input-height: 40px;
@@ -68,21 +68,29 @@ body {
   justify-content: center;
 }
 
-.section-group {
+.long-input__direction {
   display: flex;
   flex-direction: column;
-  width: var(--group-width);
+  width: var(--group-label-width);
+}
+
+.separation {
   gap: 0.5em;
 }
 
-.section-group__label {
-  width: var(--group-label-width);
+.label-style {
   height: var(--group-label-height);
   font-size: var(--label-font-size);
+  width: var(--label-width);
 }
 
-.section-group__input,
-.section-email__input {
+.label-style::before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+}
+
+.input-select-style {
   width: var(--input-width);
   height: var(--input-height);
   padding: var(--input-padding);
@@ -91,14 +99,6 @@ body {
   margin-top: var(--input-margin-top);
   font-size: var(--input-font-size);
   font-family: var(--input-font-family);
-}
-
-.section-email__label {
-  display: flex;
-  flex-direction: column;
-  width: var(--label-width);
-  height: var(--group-label-height);
-  font-size: var(--label-font-size);
 }
 
 .section__country-phone {
@@ -110,28 +110,13 @@ body {
 
 .section__country-label,
 .section__label-label,
-.section__number-label {
-  width: var(--group-label-width);
-  height: var(--group-label-height);
+.section__month-label {
   position: relative;
-  font-size: var(--label-font-size);
 }
 
 .section__country-select,
-.section__number-input,
-.section__label-select {
-  width: var(--input-width);
-  height: var(--input-height);
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
-  margin-top: var(--input-margin-top);
-  font-size: var(--input-font-size);
-  font-family: var(--input-font-family);
-  padding: var(--input-padding);
-}
-
-.section__country-select,
-.section__label-select {
+.section__label-select,
+.section__month-select {
   padding: 0 30px 0 16px;
   appearance: none;
 }
@@ -179,53 +164,13 @@ body {
   gap: 0.5em;
 }
 
-.section__day-label,
-.section__month-label,
-.section__year-label {
-  width: var(--group-label-width);
-  height: var(--group-label-height);
-  font-size: var(--label-font-size);
-}
-
-.section__month-label {
-  position: relative;
-}
-
-.section__day-input,
-.section__month-select,
-.section__year-input {
-  width: var(--input-width);
-  height: var(--input-height);
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
-  margin-top: var(--input-margin-top);
-  font-size: var(--input-font-size);
-  font-family: var(--input-font-family);
-  padding: var(--input-padding);
-}
-
-.section__month-select {
-  appearance: none;
-}
-
-.section__notes-label {
-  width: var(--label-width);
-  display: flex;
-  flex-direction: column;
-  font-size: var(--label-font-size);
-}
-
 .section__notes-textarea {
-  width: var(--input-width);
-  height: 60px;
-  border-width: var(--input-border-width);
-  border-radius: var(--input-border-radius);
-  margin-top: var(--input-margin-top);
-  font-size: var(--input-font-size);
-  font-family: var(--input-font-family);
   padding: 5px 16px 5px 16px;
 }
 
+.note-height {
+  height: 75px;
+}
 .save-button {
   width: var(--section-width);
   display: flex;
@@ -264,26 +209,12 @@ body {
     padding: var(--section-padding);
   }
 
-  .section__country-label {
+  .short-input__label {
     width: 20%;
   }
 
-  .section__number-label {
-    width: 77.8%;
-  }
-
-  .section__label-label,
-  .section__year-label {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .section__day-label {
-    width: 20%;
-  }
-
-  .section__month-label {
-    width: 77.8%;
+  .medium-input__label{
+    width: 78%;
   }
 
   .save-button {
@@ -302,35 +233,15 @@ body {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-  }
-
-  .section__country-phone,
-  .section__month-day-year {
     gap: 1em;
   }
 
-  .section__country-label {
-    width: 20%;
-  }
-
-  .section__number-label {
-    width: 70%;
-  }
-
-  .section__label-label {
+  .large-input__label {
     width: 50%;
   }
 
-  .section__day-label {
+  .short-input__label {
     width: 20%;
-  }
-
-  .section__month-label {
-    width: 70%;
-  }
-
-  .section__year-label {
-    width: 50%;
   }
 
   .save-button {
@@ -339,11 +250,12 @@ body {
 }
 
 @media (min-width: 1200px) {
+
   .main-container {
     padding: 40px;
   }
 
-  .section-group {
+  .medium-input__direction {
     flex-direction: row;
     gap: 1em;
   }
