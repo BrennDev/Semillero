@@ -33,6 +33,15 @@ body {
   border-collapse: collapse;
 }
 
+.contact-table > tbody > tr:nth-child(odd) {
+  background-color: #f8fafd;
+  
+  &:hover {
+    background-color: #ecf2fc;
+    cursor: pointer;
+  }
+}
+
 caption {
   font-size: 24px;
   height: var(--row-height);
@@ -47,7 +56,11 @@ caption {
 .row-title {
   height: var(--row-height);
   border-bottom: 1px solid #c4c7c5;
-  font-weight: 400;
+}
+
+.title {
+  font-weight: lighter;
+  text-align: left;
 }
 
 .row-contact {
@@ -90,7 +103,7 @@ caption {
 }
 
 .spinner {
-  margin: 10px;
+  margin: 40px 0 20px 0;
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -140,7 +153,7 @@ caption {
 .progress-bar {
   margin-top: 30px;
   height: 12px;
-  border: 6px solid #1a73e8;
+  border: 6.5px solid #1a73e8;
   animation: progress-bar-move 20s infinite linear ;
 }
 
