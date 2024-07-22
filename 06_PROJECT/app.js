@@ -5,8 +5,22 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+const arrayLatitud = [];
 const coordinates = [];
 let count = 0;
+
+function orderedCoordinates(arrayLatitud) {
+  let minLatitud = arrayLatitud[0];
+  for (let i = 0; i < arrayLatitud.length; i++) {
+    if (arrayLatitud[i] <= minLatitud) {
+      console.log(
+        `Anterior minimo ${minLatitud}, nuevo minimo ${arrayLatitud[i]}`,
+      );
+      minLatitud = arrayLatitud[i];
+    }
+  }
+  return `Valor minimo: ${minLatitud}`;
+}
 
 function askLatitud() {
   if (count < 5) {
@@ -25,12 +39,14 @@ function askLatitud() {
           );
           askLatitud();
         } else {
+          arrayLatitud.push(lat);
           askLongitud(lat);
         }
       },
     );
   } else {
     console.log('Las coordenadas ingresadas son: ', coordinates);
+    console.log(orderedCoordinates(arrayLatitud));
     rl.close();
   }
 }
