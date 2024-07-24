@@ -1,5 +1,5 @@
-const readline = require("readline");
-const quicksort = require("./quicksort");
+const readline = require('readline');
+const quicksort = require('./quicksort');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -18,24 +18,24 @@ function askLatitud() {
       (latitud) => {
         const lat = Number(latitud);
         if (isNaN(lat)) {
-          console.log("El formato de latitud es incorrecto");
+          console.log('El formato de latitud es incorrecto');
           askLatitud();
         } else if (lat > 90 || lat < -90) {
           console.log(
-            "La latitud ingresada no es válida. Debe ser un número entre -90 y 90."
+            'La latitud ingresada no es válida. Debe ser un número entre -90 y 90.',
           );
           askLatitud();
         } else {
           askLongitud(lat);
         }
-      }
+      },
     );
   } else {
-    console.log("Las coordenadas ingresadas son: ", coordinates);
+    console.log('Las coordenadas ingresadas son: ', coordinates);
     const sortedCoordinates = quicksort(coordinates);
     console.log(
-      "Las coordenadas ordenadas por longitud son: ",
-      sortedCoordinates
+      'Las coordenadas ordenadas por longitud son: ',
+      sortedCoordinates,
     );
     rl.close();
   }
@@ -49,11 +49,11 @@ function askLongitud(lat) {
     (longitud) => {
       const lon = Number(longitud);
       if (isNaN(lon)) {
-        console.log("El formato de longitud es incorrecto");
+        console.log('El formato de longitud es incorrecto');
         askLongitud(lat);
       } else if (lon > 180 || lon < -180) {
         console.log(
-          "La longitud ingresada no es válida. Debe ser un número entre -180 y 180."
+          'La longitud ingresada no es válida. Debe ser un número entre -180 y 180.',
         );
         askLongitud(lat);
       } else {
@@ -62,7 +62,7 @@ function askLongitud(lat) {
         console.log(`Las coordenadas (${lat}, ${lon}) son válidas`);
         askLatitud();
       }
-    }
+    },
   );
 }
 
