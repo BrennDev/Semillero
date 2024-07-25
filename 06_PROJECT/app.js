@@ -9,27 +9,42 @@ const rl = readline.createInterface({
 const coordinates = [];
 let count = 0;
 
-function askLatitud() {
+function validateCoordinate(coordinate, min, max) {
+  if (isNaN(coordinate)) {
+    console.log('El valor ingresado no es un número válido.');
+    return false;
+  }
+  if (coordinate < min || coordinate > max) {
+    console.log(`El valor debe estar entre ${min} y ${max}.`);
+    return false;
+  }
+  return true;
+}
+
+function mainAsk(coordinateItem, min, max, callback) {
+  rl.question(
+    `Por favor, ingrese la ${coordinateItem} en formato decimal: `,
+    (input) => {
+      const number = Number(input);
+      if (!validateCoordinate(number, min, max)) {
+        mainAsk(coordinateItem, min, max, callback);
+      } else {
+        callback(number);
+      }
+    },
+  );
+}
+
+function askCoordinates() {
   if (count < 5) {
-    rl.question(
-      `Por favor, ingrese la latitud en formato decimal para la coordenada ${
-        count + 1
-      }: `,
-      (latitud) => {
-        const lat = Number(latitud);
-        if (isNaN(lat)) {
-          console.log('El formato de latitud es incorrecto');
-          askLatitud();
-        } else if (lat > 90 || lat < -90) {
-          console.log(
-            'La latitud ingresada no es válida. Debe ser un número entre -90 y 90.',
-          );
-          askLatitud();
-        } else {
-          askLongitud(lat);
-        }
-      },
-    );
+    mainAsk('latitud', -90, 90, (lat) => {
+      mainAsk('longitud', -180, 180, (lon) => {
+        coordinates.push({ lat, lon });
+        count++;
+        console.log(`Las coordenadas (${lat}, ${lon}) son válidas`);
+        askCoordinates();
+      });
+    });
   } else {
     console.log('Las coordenadas ingresadas son: ', coordinates);
     const sortedCoordinates = quicksort(coordinates);
@@ -41,29 +56,4 @@ function askLatitud() {
   }
 }
 
-function askLongitud(lat) {
-  rl.question(
-    `Por favor, ingrese la longitud en formato decimal para la coordenada ${
-      count + 1
-    }: `,
-    (longitud) => {
-      const lon = Number(longitud);
-      if (isNaN(lon)) {
-        console.log('El formato de longitud es incorrecto');
-        askLongitud(lat);
-      } else if (lon > 180 || lon < -180) {
-        console.log(
-          'La longitud ingresada no es válida. Debe ser un número entre -180 y 180.',
-        );
-        askLongitud(lat);
-      } else {
-        coordinates.push({ lat, lon });
-        count++;
-        console.log(`Las coordenadas (${lat}, ${lon}) son válidas`);
-        askLatitud();
-      }
-    },
-  );
-}
-
-askLatitud();
+askCoordinates();
