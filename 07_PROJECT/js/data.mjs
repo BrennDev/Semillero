@@ -1,4 +1,4 @@
-const data = {
+export const data = {
   objectIdFieldName: "OBJECTID",
   uniqueIdField: {
     name: "OBJECTID",
@@ -208,10 +208,3 @@ const data = {
     },
   ],
 };
-
-function locationsTransformer(data) {
-  const { features } = data;
-  console.log(features);
-}
-
-locationsTransformer(data);
