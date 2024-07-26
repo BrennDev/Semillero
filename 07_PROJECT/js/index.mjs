@@ -17,8 +17,11 @@ function getUniversity(features) {
 }
 
 function locationsTransformer({ features }) {
-  console.log(getStates(features));
-  console.log(getUniversity(features));
+  const states = getStates(features);
+  const locationUniversity = getUniversity(features);
+  return { states, locationUniversity };
 }
 
-locationsTransformer(data);
+const { states, locationUniversity } = locationsTransformer(data);
+console.log(states);
+console.log(locationUniversity);
