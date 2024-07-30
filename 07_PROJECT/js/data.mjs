@@ -206,5 +206,16 @@ export const data = {
         y: 35.0873368760001,
       },
     },
+    {
+      attributes: {
+        University_Chapter: "",
+        City: "Conway",
+        State: "",
+      },
+      geometry: {
+        x: "",
+        y: 35.0873368760001,
+      },
+    },
   ],
 };
