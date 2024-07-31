@@ -6,9 +6,39 @@
     <title>Ejercicio 4 js</title>
     <link rel="icon" href="./img/jiji.jpg" />
     <script type="module" src="./js/index.mjs"></script>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
-    <h1>Semillero</h1>
-    <h2>Ejercicio 4</h2>
+    <main class="main-container">
+      <h1>Semillero</h1>
+      <h2>Exercise 4</h2>
+      <section>
+        <button id="dataButton">Show data</button>
+      </section>
+      <section id="showSectionButton">
+        <div id="statesUniversities">
+          <div>
+            <h3>States</h3>
+            <select id="statesSelect"></select>
+          </div>
+          <div>
+            <h3>University Location</h3>
+            <table>
+              <thead>
+                <th>University</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+              </thead>
+              <tbody id="UniversityTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
