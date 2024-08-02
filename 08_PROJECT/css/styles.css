@@ -1,0 +1,99 @@
+:root {
+  --backgroundColorAlbumHover: #1a1a1a;
+  --backgroundColorHover: #282828;
+  --backgroundColorPrimary: #121212;
+  --textPrimary: #ffffff;
+  --textSecundary: #9f9f9f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--backgroundColorHover);
+  color: var(--textPrimary);
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+  justify-content: center;
+  padding: 20px;
+}
+
+.main-container {
+  background-image: linear-gradient(to top, var(--backgroundColorPrimary) 70%, #3c3c39);
+  border-radius: 8px;
+  width: 1024px;
+}
+
+.header__div {
+  height: 360px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header__div-text {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  bottom: 10px;
+  left: 10px;
+}
+
+.header__text {
+  font-size: 5rem;
+  font-weight: 900;
+  text-align: left;
+}
+
+.header__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  border-radius: 8px 8px 0 0;
+  color: white;
+}
+
+.buttonSection__section {
+  height: 60px;
+}
+
+.songs-grid {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 220px;
+}
+
+.songs-grid .songs-grid__item {
+  display: contents;
+}
+
+.songs-grid__item p,
+.songs-grid__item figure {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.songs-grid__position {
+  text-align: right;
+}
+
+.songs-grid__position,
+.songs-grid__counter {
+  color: var(--textSecundary);
+}
+
+.songs-grid__item:hover * {
+  background-color: var(--backgroundColorHover);
+  color: var(--textPrimary);
+}
+
+.songs-grid__artist {
+  display: flex;
+}
