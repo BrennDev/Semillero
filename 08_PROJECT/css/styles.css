@@ -66,7 +66,7 @@ body {
 
 .songs-grid {
   display: grid;
-  grid-template-columns: 50px 1fr 1fr 220px;
+  grid-template-columns: 50px 1fr 220px;
 }
 
 .songs-grid .songs-grid__item {

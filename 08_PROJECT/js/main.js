@@ -1,40 +1,46 @@
 import { data } from './data.js';
 
-function getMonthlyListeners(data) {
-  const listeners = data?.artistUnion?.stats?.monthlyListeners || 0;
-  return listeners.toLocaleString();
-}
-
-function getNameArtist(data) {
-  const nameArtis = data?.artistUnion?.profile?.name || '';
-  return nameArtis;
-}
-
-function getaheaderImg(data) {
-  const headerImgUrl = data?.artistUnion?.visuals?.headerImage?.sources?.[0]?.url || '';
-  return headerImgUrl;
+function getArtistHeaderDetails(data) {
+  const artistUnion = data?.artistUnion || {};
+  const monthlyListeners = artistUnion.stats?.monthlyListeners || 0;
+  const nameArtis = artistUnion?.profile?.name || '';
+  const headerImg = artistUnion?.visuals?.headerImage?.sources?.[0]?.url || '';
+  const verified = artistUnion.profile?.verified;
+  return {
+    monthlyListeners: monthlyListeners.toLocaleString(),
+    nameArtis,
+    headerImg,
+    verified: verified ? 'Artist Verified' : 'Artist Not Verified',
+  };
 }
 
 function getAlbumDetails(data) {
+  const albums = data?.artistUnion?.discography?.albums.items || [];
   const albumDetails =
-    data?.artistUnion?.discography?.albums.items?.map((album) => ({
-      imgAlbum: album?.releases?.items?.[0]?.coverArt.sources?.[0]?.url || '',
-      nameAlbum: album?.releases?.items?.[0]?.name || '',
-      yearAlbum: album?.releases?.items?.[0]?.date?.year || '',
-      totalCount: album?.releases?.items?.[0]?.tracks?.totalCount || 0,
-      songs: getSongsAlbum(album),
-    })) || [];
+    albums.map((album) => {
+      const release = album?.releases?.items?.[0] || {};
+      return {
+        imgAlbum: release.coverArt.sources?.[0]?.url || '',
+        nameAlbum: release.name || '',
+        yearAlbum: release.date?.year || '',
+        totalCount: release.tracks?.totalCount || 0,
+        songs: getSongsAlbum(album),
+      };
+    }) || [];
   return albumDetails;
 }
 
 function getSongsAlbum(album) {
   const songsAlbum = album?.releases?.items?.[0]?.tracks?.items || [];
-  const songsDetails = songsAlbum.map((trackItem) => ({
-    songPosition: trackItem?.track?.trackNumber || '',
-    songName: trackItem?.track?.name || '',
-    artistName: trackItem?.track?.artists?.items?.[0]?.profile?.name || '',
-    songDuration: trackItem?.track?.duration?.totalMilliseconds || '0',
-  }));
+  const songsDetails = songsAlbum.map((trackItem) => {
+    const tracks = trackItem?.track || {};
+    return {
+      songPosition: tracks.trackNumber || '',
+      songName: tracks.name || '',
+      artistName: tracks.artists?.items?.[0]?.profile?.name || '',
+      songDuration: tracks.duration?.totalMilliseconds || '0',
+    };
+  });
 
   return songsDetails;
 }
@@ -53,27 +59,28 @@ function renderPage() {
 }
 
 function headerSection() {
+  const artistHeaderDetails = getArtistHeaderDetails(data);
   const divHeader = document.createElement('div');
   divHeader.className = 'header__div';
 
   const imgHeader = document.createElement('img');
   imgHeader.className = 'header__img';
-  imgHeader.src = getaheaderImg(data);
+  imgHeader.src = artistHeaderDetails.headerImg;
 
   const divTextHeader = document.createElement('div');
   divTextHeader.className = 'header__div-text';
 
   const spanHeaderVerified = document.createElement('span');
   spanHeaderVerified.className = 'header__span-verified';
-  spanHeaderVerified.textContent = 'Verified Artist';
+  spanHeaderVerified.textContent = artistHeaderDetails.verified;
 
   const textArtistHeader = document.createElement('text');
   textArtistHeader.className = 'header__text';
-  textArtistHeader.textContent = getNameArtist(data);
+  textArtistHeader.textContent = artistHeaderDetails.nameArtis;
 
   const spanHeaderListeners = document.createElement('span');
   spanHeaderListeners.className = 'header__span-listeners';
-  spanHeaderListeners.textContent = `${getMonthlyListeners(data)} monthly listeners`;
+  spanHeaderListeners.textContent = `${artistHeaderDetails.monthlyListeners} monthly listeners`;
 
   divTextHeader.append(spanHeaderVerified, textArtistHeader, spanHeaderListeners);
 
@@ -126,6 +133,23 @@ function imgAlbumSection() {
 function tableAlbumSection(albumSongs) {
   const divSongsAlbum = document.createElement('div');
   divSongsAlbum.className = 'songs-grid';
+  const divSongsTitle = document.createElement('div');
+  divSongsTitle.className = 'songs-grid__item';
+
+  const songPositionTitle = document.createElement('p');
+  songPositionTitle.className = 'songs-grid__position';
+  songPositionTitle.textContent = '#';
+
+  const songNameTitle = document.createElement('p');
+  songNameTitle.className = 'songs-grid__name';
+  songNameTitle.textContent = 'Title';
+
+  const songDurationTitle = document.createElement('p');
+  songDurationTitle.className = 'songs-grid__artist';
+  songDurationTitle.textContent = '1';
+
+  divSongsTitle.append(songPositionTitle, songNameTitle, songDurationTitle);
+  divSongsAlbum.append(divSongsTitle);
 
   albumSongs.forEach((songs) => {
     const divSongs = document.createElement('div');
@@ -134,6 +158,8 @@ function tableAlbumSection(albumSongs) {
     const songPosition = document.createElement('p');
     songPosition.className = 'songs-grid__position';
     songPosition.textContent = `${songs.songPosition}`;
+
+    const divSongNameArtist = document.createElement('div');
 
     const songName = document.createElement('p');
     songName.className = 'songs-grid__name';
@@ -147,8 +173,9 @@ function tableAlbumSection(albumSongs) {
     songDuration.className = 'songs-grid__duration';
     songDuration.textContent = `${songs.songDuration}`;
 
-    divSongs.append(songPosition, songName, artistName, songDuration);
-    divSongsAlbum.appendChild(divSongs);
+    divSongNameArtist.append(songName, artistName);
+    divSongs.append(songPosition, divSongNameArtist, songDuration);
+    divSongsAlbum.append(divSongs);
   });
 
   return divSongsAlbum;
