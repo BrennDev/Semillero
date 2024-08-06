@@ -22,6 +22,7 @@ function getAlbumDetails(data) {
       return {
         imgAlbum: release.coverArt.sources?.[0]?.url || '',
         nameAlbum: release.name || '',
+        type: formatAlbumType(release.type),
         yearAlbum: release.date?.year || '',
         totalCount: release.tracks?.totalCount || 0,
         songs: getSongsAlbum(album),
@@ -43,6 +44,10 @@ function getSongsAlbum(album) {
   });
 
   return songsDetails;
+}
+
+function formatAlbumType(type) {
+  return type ? type.charAt(0) + type.slice(1).toLowerCase() : '';
 }
 
 function renderPage() {
@@ -119,7 +124,7 @@ function imgAlbumSection() {
     albumName.textContent = `Album: ${album.nameAlbum}`;
 
     const albumYear = document.createElement('p');
-    albumYear.textContent = `Year: ${album.totalCount}`;
+    albumYear.textContent = `Year: ${album.yearAlbum}`;
 
     const albumSongs = tableAlbumSection(album.songs);
 
