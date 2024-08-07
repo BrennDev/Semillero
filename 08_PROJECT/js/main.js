@@ -7,7 +7,7 @@ function getArtistHeaderDetails(data) {
   const headerImg = artistUnion?.visuals?.headerImage?.sources?.[0]?.url || '';
   const verified = artistUnion.profile?.verified;
   return {
-    monthlyListeners: monthlyListeners.toLocaleString(),
+    monthlyListeners: monthlyListeners,
     nameArtis,
     headerImg,
     verified: verified ? 'Artist Verified' : 'Artist Not Verified',
@@ -22,7 +22,7 @@ function getAlbumDetails(data) {
       return {
         imgAlbum: release.coverArt.sources?.[0]?.url || '',
         nameAlbum: release.name || '',
-        type: formatAlbumType(release.type),
+        type: release.type || '',
         yearAlbum: release.date?.year || '',
         totalCount: release.tracks?.totalCount || 0,
         songs: getSongsAlbum(album),
@@ -85,7 +85,7 @@ function headerSection() {
 
   const spanHeaderListeners = document.createElement('span');
   spanHeaderListeners.className = 'header__span-listeners';
-  spanHeaderListeners.textContent = `${artistHeaderDetails.monthlyListeners} monthly listeners`;
+  spanHeaderListeners.textContent = `${artistHeaderDetails.monthlyListeners.toLocaleString()} monthly listeners`;
 
   divTextHeader.append(spanHeaderVerified, textArtistHeader, spanHeaderListeners);
 
