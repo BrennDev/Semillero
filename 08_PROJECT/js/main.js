@@ -49,9 +49,8 @@ function getSongsAlbum(album) {
 function convertToMinutes(ms) {
   const milliseconds = new Date(ms);
   const minutes = milliseconds.getMinutes();
-  const seconds = milliseconds.getSeconds();
-  const formatSeconds = ('0' + seconds).slice(-2);
-  return `${minutes}:${formatSeconds}`;
+  const seconds = String(milliseconds.getSeconds()).padStart(2, '0');
+  return `${minutes}:${seconds}`;
 }
 
 function createElement(tag, attributes = {}) {
