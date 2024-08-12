@@ -10,7 +10,7 @@ function getArtistHeaderDetails(data) {
     monthlyListeners: monthlyListeners,
     nameArtis,
     headerImg,
-    verified: verified ? 'Artist Verified' : 'Artist Not Verified',
+    verified: verified ? 'Verified Artist' : 'Unverified Artist',
   };
 }
 
@@ -46,89 +46,142 @@ function getSongsAlbum(album) {
   return songsDetails;
 }
 
-function formatAlbumType(type) {
-  return type ? type.charAt(0) + type.slice(1).toLowerCase() : '';
+function convertToMinutes(ms) {
+  const milliseconds = new Date(ms);
+  const minutes = milliseconds.getMinutes();
+  const seconds = String(milliseconds.getSeconds()).padStart(2, '0');
+  return `${minutes}:${seconds}`;
+}
+
+function createElement(tag, attributes = {}) {
+  const element = document.createElement(tag);
+  Object.assign(element, attributes);
+  return element;
+}
+
+function createButton(attributes = {}) {
+  return createElement('button', attributes);
 }
 
 function renderPage() {
-  const divMain = document.createElement('div');
-  divMain.className = 'main-container';
-
+  const divMain = createElement('div', { className: 'main-container' });
   const divHeader = headerSection();
   const buttonsSection = buttonSection();
   const albumsSections = albumSection();
 
   divMain.append(divHeader, buttonsSection, albumsSections);
-
   document.body.appendChild(divMain);
 }
 
 function headerSection() {
   const artistHeaderDetails = getArtistHeaderDetails(data);
-  const divHeader = document.createElement('div');
-  divHeader.className = 'header__div';
+  const formatMonthlyListeners = artistHeaderDetails.monthlyListeners.toLocaleString();
 
-  const imgHeader = document.createElement('img');
-  imgHeader.className = 'header__img';
-  imgHeader.src = artistHeaderDetails.headerImg;
+  const imgHeader = createElement('img', {
+    className: 'header__img',
+    src: artistHeaderDetails.headerImg,
+    alt: `${artistHeaderDetails.nameArtis} header image`,
+  });
+  const iconHeaderVerified = createElement('i', {
+    className: 'header__icon fa-solid fa-certificate',
+  });
+  const spanHeaderVerified = createElement('span', {
+    className: 'header__span-verified',
+    textContent: artistHeaderDetails.verified,
+  });
+  const textArtistHeader = createElement('text', {
+    className: 'header__text-artist',
+    textContent: artistHeaderDetails.nameArtis,
+  });
+  const spanHeaderListeners = createElement('span', {
+    className: 'header__span-listeners',
+    textContent: `${formatMonthlyListeners} monthly listeners`,
+  });
 
-  const divTextHeader = document.createElement('div');
-  divTextHeader.className = 'header__div-text';
+  const divHeaderVerified = createElement('div');
+  divHeaderVerified.append(iconHeaderVerified, spanHeaderVerified);
 
-  const spanHeaderVerified = document.createElement('span');
-  spanHeaderVerified.className = 'header__span-verified';
-  spanHeaderVerified.textContent = artistHeaderDetails.verified;
+  const divTextHeader = createElement('div', { className: 'header__div-text' });
+  divTextHeader.append(divHeaderVerified, textArtistHeader, spanHeaderListeners);
 
-  const textArtistHeader = document.createElement('text');
-  textArtistHeader.className = 'header__text';
-  textArtistHeader.textContent = artistHeaderDetails.nameArtis;
-
-  const spanHeaderListeners = document.createElement('span');
-  spanHeaderListeners.className = 'header__span-listeners';
-  spanHeaderListeners.textContent = `${artistHeaderDetails.monthlyListeners.toLocaleString()} monthly listeners`;
-
-  divTextHeader.append(spanHeaderVerified, textArtistHeader, spanHeaderListeners);
-
+  const divHeader = createElement('div', { className: 'header__div' });
   divHeader.append(imgHeader, divTextHeader);
+
   return divHeader;
 }
 
 function buttonSection() {
-  const buttonSection = document.createElement('section');
-  buttonSection.className = 'buttonSection__section';
+  const buttonSectionPlay = createButton({
+    className: 'buttonSection__button buttonSection__button-play fa-solid fa-circle-play',
+  });
+  const buttonSectionFollow = createButton({
+    className: 'buttonSection__button buttonSection__button-follow',
+    textContent: 'Follow',
+  });
+  const buttonSectionElipsis = createButton({
+    className: 'buttonSection__button buttonSection__button-more fa-solid fa-ellipsis',
+  });
+
+  const buttonSection = createElement('section', { className: 'buttonSection__section' });
+  buttonSection.append(buttonSectionPlay, buttonSectionFollow, buttonSectionElipsis);
+
   return buttonSection;
 }
 
 function albumSection() {
-  const sectionAlbumSection = document.createElement('section');
-  sectionAlbumSection.className = 'sectionAlbumSection__section';
-
   const imgAlbum = imgAlbumSection();
-
-  sectionAlbumSection.append(imgAlbum);
+  const sectionAlbumSection = createElement('section', {
+    className: 'albumSection__section',
+  });
+  sectionAlbumSection.appendChild(imgAlbum);
 
   return sectionAlbumSection;
 }
 
 function imgAlbumSection() {
   const albumDetails = getAlbumDetails(data);
-  const divImgAlbumSection = document.createElement('div');
+  const divImgAlbumSection = createElement('div', { className: 'albumDetails__div-main' });
 
   albumDetails.forEach((album) => {
-    const albumDiv = document.createElement('div');
+    const formatType = album.type.toLowerCase();
+    const imgAlbum = createElement('img', {
+      src: album.imgAlbum,
+      className: 'albumDetails__img-album',
+      alt: `${album.nameAlbum} album image`,
+    });
+    const albumName = createElement('p', {
+      className: 'albumDetails__text-name',
+      textContent: album.nameAlbum,
+    });
+    const albumTypeYearSong = createElement('p', {
+      className: 'albumDetails__text-typeYearCount',
+      textContent: `${formatType} • ${album.yearAlbum} • ${album.totalCount} songs `,
+    });
 
-    const imgAlbum = document.createElement('img');
-    imgAlbum.src = album.imgAlbum;
+    const albumButtonPlay = createButton({
+      className: 'albumDetails__button albumDetails__button-play fa-solid fa-circle-play',
+    });
+    const albumButtonPlus = createButton({
+      className: 'albumDetails__button albumDetails__button-plus fa-solid fa-circle-plus',
+    });
+    const albumButtonElipsis = createButton({
+      className: 'albumDetails__button albumDetails__button-more fa-solid fa-ellipsis',
+    });
 
-    const albumName = document.createElement('p');
-    albumName.textContent = `Album: ${album.nameAlbum}`;
+    const albumButtonDiv = createElement('div', { className: 'albumDetails__div-buttons' });
+    albumButtonDiv.append(albumButtonPlay, albumButtonPlus, albumButtonElipsis);
 
-    const albumYear = document.createElement('p');
-    albumYear.textContent = `Year: ${album.yearAlbum}`;
+    const albumDetailsTextDiv = createElement('div', { className: 'albumDetails__div-text' });
+    albumDetailsTextDiv.append(albumName, albumTypeYearSong, albumButtonDiv);
+
+    const albumDetailsDiv = createElement('div', { className: 'albumDetails__div-section' });
+    albumDetailsDiv.append(imgAlbum, albumDetailsTextDiv);
 
     const albumSongs = tableAlbumSection(album.songs);
 
-    albumDiv.append(imgAlbum, albumName, albumYear, albumSongs);
+    const albumDiv = createElement('div', { className: 'albumDetails__div' });
+    albumDiv.append(albumDetailsDiv, albumSongs);
+
     divImgAlbumSection.appendChild(albumDiv);
   });
 
@@ -136,51 +189,48 @@ function imgAlbumSection() {
 }
 
 function tableAlbumSection(albumSongs) {
-  const divSongsAlbum = document.createElement('div');
-  divSongsAlbum.className = 'songs-grid';
-  const divSongsTitle = document.createElement('div');
-  divSongsTitle.className = 'songs-grid__item';
+  const songPositionTitle = createElement('i', {
+    className: 'songs-title fa-regular fa-hashtag',
+  });
+  const songNameTitle = createElement('p', {
+    className: 'songs-title',
+    textContent: 'Title',
+  });
+  const songDurationTitle = createElement('i', {
+    className: 'songs-title fa-regular fa-clock',
+  });
 
-  const songPositionTitle = document.createElement('p');
-  songPositionTitle.className = 'songs-grid__position';
-  songPositionTitle.textContent = '#';
-
-  const songNameTitle = document.createElement('p');
-  songNameTitle.className = 'songs-grid__name';
-  songNameTitle.textContent = 'Title';
-
-  const songDurationTitle = document.createElement('p');
-  songDurationTitle.className = 'songs-grid__artist';
-  songDurationTitle.textContent = '1';
-
+  const divSongsTitle = createElement('div', { className: 'songs-grid__title' });
   divSongsTitle.append(songPositionTitle, songNameTitle, songDurationTitle);
-  divSongsAlbum.append(divSongsTitle);
+
+  const divSongsAlbum = createElement('div', { className: 'songs-grid' });
+  divSongsAlbum.appendChild(divSongsTitle);
 
   albumSongs.forEach((songs) => {
-    const divSongs = document.createElement('div');
-    divSongs.className = 'songs-grid__item';
+    const songPosition = createElement('p', {
+      className: 'songs-grid__position',
+      textContent: `${songs.songPosition}`,
+    });
+    const songName = createElement('p', {
+      className: 'songs-grid__name',
+      textContent: `${songs.songName}`,
+    });
+    const artistName = createElement('span', {
+      className: 'songs-grid__artist',
+      textContent: `${songs.artistName}`,
+    });
+    const songDuration = createElement('p', {
+      className: 'songs-grid__duration',
+      textContent: convertToMinutes(songs.songDuration),
+    });
 
-    const songPosition = document.createElement('p');
-    songPosition.className = 'songs-grid__position';
-    songPosition.textContent = `${songs.songPosition}`;
-
-    const divSongNameArtist = document.createElement('div');
-
-    const songName = document.createElement('p');
-    songName.className = 'songs-grid__name';
-    songName.textContent = `${songs.songName}`;
-
-    const artistName = document.createElement('p');
-    artistName.className = 'songs-grid__artist';
-    artistName.textContent = `${songs.artistName}`;
-
-    const songDuration = document.createElement('p');
-    songDuration.className = 'songs-grid__duration';
-    songDuration.textContent = `${songs.songDuration}`;
-
+    const divSongNameArtist = createElement('div');
     divSongNameArtist.append(songName, artistName);
+
+    const divSongs = createElement('div', { className: 'songs-grid__item' });
     divSongs.append(songPosition, divSongNameArtist, songDuration);
-    divSongsAlbum.append(divSongs);
+
+    divSongsAlbum.appendChild(divSongs);
   });
 
   return divSongsAlbum;
