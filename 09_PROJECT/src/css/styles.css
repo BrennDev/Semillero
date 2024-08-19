@@ -19,6 +19,9 @@
   --main-width: 90%;
   --section-padding: 0 0 1em 0;
   --section-width: 100%;
+  --white-color: #ffffff;
+  --background-color: #ecf2fc;
+  --disabled-bg-color: #e4e4e4;
 }
 
 * {
@@ -38,7 +41,7 @@ body {
 
 .main-container {
   width: 70%;
-  background-color: #ffffff;
+  background-color: var(--white-color);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -51,7 +54,7 @@ body {
 }
 
 .contact-table {
-  width: 90%;
+  width: var(--main-width);
   border-collapse: collapse;
 }
 
@@ -59,15 +62,14 @@ body {
   background-color: #f8fafd;
 
   &:hover {
-    background-color: #ecf2fc;
+    background-color: var(--background-color);
     cursor: pointer;
   }
 }
 
-caption {
+.title-section {
   font-size: 24px;
   height: var(--row-height);
-  padding-left: var(--cell-padding-left);
 }
 
 .row-title {
@@ -83,7 +85,7 @@ caption {
 .row-contact {
   height: var(--row-height);
   &:hover {
-    background-color: #ecf2fc;
+    background-color: var(--background-color);
     cursor: pointer;
   }
 }
@@ -101,13 +103,16 @@ caption {
 
 .spinner {
   display: none;
-  margin: 40px 0 20px 0;
   width: 48px;
   height: 48px;
   border-radius: 50%;
   border: 6px solid transparent;
   border-bottom: 6px solid #1a73e8;
   animation: spin 2s infinite linear;
+  position: relative;
+  top: 40%;
+  left: 40%;
+  margin: 40px 0;
 }
 
 @keyframes spin {
@@ -135,7 +140,7 @@ caption {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: #001d35;
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--font-size-16px);
   margin: 10px;
   height: 56px;
   width: 170px;
@@ -152,14 +157,16 @@ caption {
 }
 
 .contact-form {
-  max-width: 1200px;
-  min-width: 360px;
   width: 100%;
+  margin: 50px 0;
 }
 
 .contact-create-container {
-  background-color: #ffffff;
+  background-color: var(--white-color);
   width: var(--main-width);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .section__icon {
@@ -194,6 +201,7 @@ caption {
   font-size: var(--font-size-16px);
   height: var(--group-label-height);
   width: var(--label-width);
+  position: relative;
 }
 
 .label-style::before {
@@ -225,22 +233,61 @@ caption {
   border-radius: 24px;
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: white;
+  color: var(--white-color);
   cursor: pointer;
   font-size: var(--font-size-16px);
   padding: 10px 24px;
 }
 
 .save-button button:disabled {
-  background-color: #e4e4e4;
+  background-color: var(--disabled-bg-color);
   border-radius: 24px;
   border: none;
   color: #9d9d9d;
   font-size: var(--font-size-16px);
   padding: 10px 24px;
+  &:hover {
+    background-color: var(--disabled-bg-color);
+    box-shadow: none;
+  }
 }
 
 .save-button button:hover {
   background-color: var(--bottom-primary-color-hover);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form-container {
+  position: relative;
+}
+.contact-form-container .spinner {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  display: none;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.title-form {
+  margin-left: 40%;
+}
+
+.label-style .required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
+
+.label-style::before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+  margin: 20px 0;
 }

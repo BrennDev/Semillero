@@ -16,8 +16,7 @@
     <title>Contacts</title>
   </head>
   <body>
-    <section class="main-container">
-      <div id="loading-spinner" class="spinner"></div>
+    <section class="main-container" id="main-container">
       <section id="content-container" class="hidden">
         <div class="button">
           <button id="show-contact" class="button-style button-hover">
@@ -27,9 +26,10 @@
             + Create contact
           </button>
         </div>
-        <div>
+        <div id="loading-spinner" class="spinner"></div>
+        <section id="contact-container">
           <table id="contact-table" class="contact-table">
-            <caption>
+            <caption class="title-section">
               Contacts
             </caption>
             <thead>
@@ -44,33 +44,39 @@
           </table>
         </div>
         <section id="contact-create">
-          <form class="contact-form">
-            <div class="contact-create-container">
-              <section class="section">
-                <div class="section__icon">
-                  <img
+          <div class="contact-form-container">
+            <form id="contact-form" class="contact-form">
+              <div class="contact-create-container">
+                <p class="title-section title-form">Create Contact</p>
+                <section class="section">
+                  <div class="section__icon">
+                    <img
                     src="./src/img/person.png"
                     alt="person icon"
                     class="section__icon-img"
-                  />
-                </div>
-                <div
+                    />
+                  </div>
+                  <div
                   class="long-input__direction separation medium-input__direction"
-                >
-                  <label class="label-style">
+                  >
+                  <label class="label-style label-required">
                     First name
+                    <span class="required-asterisk">*</span>
                     <input
-                      class="input-select-style"
-                      type="text"
-                      id="contact-first-name"
+                    class="input-select-style"
+                    type="text"
+                    id="contact-first-name"
+                    required
                     />
                   </label>
-                  <label class="label-style">
+                  <label class="label-style label-required">
                     Last name
+                    <span class="required-asterisk">*</span>
                     <input
-                      class="input-select-style"
-                      type="text"
-                      id="contact-last-name"
+                    class="input-select-style"
+                    type="text"
+                    id="contact-last-name"
+                    required
                     />
                   </label>
                 </div>
@@ -78,57 +84,63 @@
               <section class="section">
                 <div class="section__icon">
                   <img
-                    src="./src/img/corporate.png"
-                    alt="corporate icon"
-                    class="section__icon-img"
+                  src="./src/img/corporate.png"
+                  alt="corporate icon"
+                  class="section__icon-img"
                   />
                 </div>
                 <div
-                  class="long-input__direction separation medium-input__direction"
+                class="long-input__direction separation medium-input__direction"
                 >
-                  <label class="label-style">
-                    Company
-                    <input
-                      class="input-select-style"
-                      type="text"
-                      id="contact-company"
-                    />
-                  </label>
-                  <label class="label-style">
-                    Job title
-                    <input
-                      class="input-select-style"
-                      type="text"
-                      id="contact-job-title"
-                    />
-                  </label>
-                </div>
-              </section>
-              <section class="section">
-                <div class="section__icon">
-                  <img
-                    src="./src/img/mail.png"
-                    alt="mail icon"
-                    class="section__icon-img"
+                <label class="label-style">
+                  Company
+                  <input
+                  class="input-select-style"
+                  type="text"
+                  id="contact-company"
                   />
-                </div>
-                <div class="long-input__direction">
-                  <label class="label-style">
-                    Email
-                    <input
-                      class="input-select-style"
-                      type="email"
-                      id="contact-email"
-                    />
-                  </label>
-                </div>
-              </section>
-              <div class="save-button">
-                <button type="submit" id="save-button">Save</button>
+                </label>
+                <label class="label-style">
+                  Job title
+                  <input
+                  class="input-select-style"
+                  type="text"
+                  id="contact-job-title"
+                  />
+                </label>
               </div>
+            </section>
+            <section class="section">
+              <div class="section__icon">
+                <img
+                src="./src/img/mail.png"
+                alt="mail icon"
+                class="section__icon-img"
+                />
+              </div>
+              <div class="long-input__direction">
+                <label class="label-style label-required">
+                  Email
+                  <span class="required-asterisk">*</span>
+                  <input
+                  class="input-select-style"
+                  type="email"
+                  id="contact-email"
+                  required
+                  />
+                </label>
+              </div>
+            </section>
+            <div class="save-button">
+              <button type="submit" id="save-button" disabled>Save</button>
             </div>
-          </form>
+          </div>
+        </form>
+        <div id="form-spinner" class="spinner"></div>
+      </div>
         </section>
+      </section>
+      <div id="error-message" class="error-message" style="display: none;"></div>
       </section>
     </section>
     <script src="./src/js/app.js"></script>

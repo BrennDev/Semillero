@@ -1,8 +1,9 @@
-const url = 'https://reqres.in/api/users?delay=1';
-let contacts = [];
+const url = 'https://reqres.in/api/users?delay=2';
+const contacts = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
+  toggleVisibility('content-container', true);
   showContactSection();
   getContacts();
 });
@@ -20,8 +21,8 @@ const showContactSection = () => {
 };
 
 const showFormSection = () => {
-  toggleVisibility('contact-table', false);
   toggleVisibility('contact-create', true);
+  clearForm();
 };
 
 const setupEventListeners = () => {
@@ -32,8 +33,11 @@ const setupEventListeners = () => {
     .getElementById('show-contact-create')
     .addEventListener('click', showFormSection);
   document
-    .getElementById('save-button')
-    .addEventListener('click', handleCreateContact);
+    .getElementById('contact-form')
+    .addEventListener('submit', handleCreateContact);
+  document
+    .getElementById('contact-form')
+    .addEventListener('input', validateForm);
 };
 
 const handleResponseError = (response) => {
@@ -94,33 +98,38 @@ const renderContactsTable = (contacts) => {
 
 const getContacts = async () => {
   toggleVisibility('loading-spinner', true);
-  toggleVisibility('content-container', false);
+  toggleVisibility('contact-table', false);
+  const errorMessageElement = document.getElementById('error-message');
+
   try {
     const response = await fetch(url);
     const data = await handleResponseError(response);
-    contacts = [...contacts, ...data.data];
+    contacts.push(...data.data);
     renderContactsTable(contacts);
   } catch (error) {
     console.error('Fetch error:', error);
+    errorMessageElement.textContent =
+      'Error loading contacts. Please try again later.';
+    toggleVisibility('error-message', true);
   } finally {
     toggleVisibility('loading-spinner', false);
-    toggleVisibility('content-container', true);
+    toggleVisibility('contact-table', true);
   }
 };
 
 const getContactDataForm = () => {
-  const firstNameInput = document.getElementById('contact-first-name').value;
-  const lastNameInput = document.getElementById('contact-last-name').value;
-  const companyInput = document.getElementById('contact-company').value;
-  const jobTitleInput = document.getElementById('contact-job-title').value;
-  const emailInput = document.getElementById('contact-email').value;
+  const first_name = document.getElementById('contact-first-name').value;
+  const last_name = document.getElementById('contact-last-name').value;
+  const company = document.getElementById('contact-company').value;
+  const job_title = document.getElementById('contact-job-title').value;
+  const email = document.getElementById('contact-email').value;
 
   return {
-    first_name: firstNameInput,
-    last_name: lastNameInput,
-    company: companyInput,
-    job_title: jobTitleInput,
-    email: emailInput,
+    first_name,
+    last_name,
+    company,
+    job_title,
+    email,
   };
 };
 
@@ -150,24 +159,34 @@ const clearForm = () => {
   ].forEach((id) => {
     document.getElementById(id).value = '';
   });
+  document.getElementById('save-button').disabled = true;
+};
+
+const validateForm = () => {
+  const form = document.getElementById('contact-form');
+  const saveButton = document.getElementById('save-button');
+  const isValid = form.checkValidity();
+  saveButton.disabled = !isValid;
 };
 
 const handleCreateContact = async (event) => {
   event.preventDefault();
-  toggleVisibility('loading-spinner', true);
-  toggleVisibility('content-container', false);
+  const saveButton = document.getElementById('save-button');
+  saveButton.disabled = true;
+  toggleVisibility('form-spinner', true);
 
   try {
     const newContact = getContactDataForm();
     const createdContact = await submitContact(newContact);
     contacts.push(createdContact);
+    console.log(contacts);
     renderContactsTable(contacts);
     showContactSection();
     clearForm();
   } catch (error) {
     console.error('Error creating contact:', error);
   } finally {
-    toggleVisibility('loading-spinner', false);
-    toggleVisibility('content-container', true);
+    toggleVisibility('form-spinner', false);
+    saveButton.disabled = false;
   }
 };
