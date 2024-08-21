@@ -4,7 +4,6 @@ const contacts = [];
 document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   toggleVisibility('content-container', true);
-  showContactSection();
   getContacts();
 });
 
@@ -15,20 +14,12 @@ const toggleVisibility = (elementId, show) => {
   }
 };
 
-const showContactSection = () => {
-  toggleVisibility('contact-create', false);
-  toggleVisibility('contact-table', true);
-};
-
 const showFormSection = () => {
   toggleVisibility('contact-create', true);
   clearForm();
 };
 
 const setupEventListeners = () => {
-  document
-    .getElementById('show-contact')
-    .addEventListener('click', showContactSection);
   document
     .getElementById('show-contact-create')
     .addEventListener('click', showFormSection);
@@ -99,6 +90,7 @@ const renderContactsTable = (contacts) => {
 const getContacts = async () => {
   toggleVisibility('loading-spinner', true);
   toggleVisibility('contact-table', false);
+  toggleVisibility('contact-create', false);
   const errorMessageElement = document.getElementById('error-message');
 
   try {
@@ -114,6 +106,7 @@ const getContacts = async () => {
   } finally {
     toggleVisibility('loading-spinner', false);
     toggleVisibility('contact-table', true);
+    toggleVisibility('contact-create', false);
   }
 };
 
@@ -159,34 +152,36 @@ const clearForm = () => {
   ].forEach((id) => {
     document.getElementById(id).value = '';
   });
-  document.getElementById('save-button').disabled = true;
+  toggleSaveButton(false);
 };
 
 const validateForm = () => {
   const form = document.getElementById('contact-form');
-  const saveButton = document.getElementById('save-button');
   const isValid = form.checkValidity();
-  saveButton.disabled = !isValid;
+  toggleSaveButton(isValid);
 };
 
 const handleCreateContact = async (event) => {
   event.preventDefault();
-  const saveButton = document.getElementById('save-button');
-  saveButton.disabled = true;
+  toggleSaveButton(false);
   toggleVisibility('form-spinner', true);
 
   try {
     const newContact = getContactDataForm();
     const createdContact = await submitContact(newContact);
     contacts.push(createdContact);
-    console.log(contacts);
     renderContactsTable(contacts);
-    showContactSection();
     clearForm();
   } catch (error) {
     console.error('Error creating contact:', error);
   } finally {
     toggleVisibility('form-spinner', false);
-    saveButton.disabled = false;
+    toggleVisibility('contact-create', false);
+    toggleSaveButton(true);
   }
+};
+
+const toggleSaveButton = (enable) => {
+  const saveButton = document.getElementById('save-button');
+  saveButton.disabled = !enable;
 };
